@@ -134,7 +134,10 @@
                 };
 
                 reader.readAsDataURL(input.files[0]);
-
+                init().then(()=> {
+                    console.log("hello");
+                    predict(); /*init함수가 실행후 predict 함수를 실행*/
+                });
             } else {
                 removeUpload();
             }
