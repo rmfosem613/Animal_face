@@ -11,12 +11,12 @@ browser = webdriver.Chrome(r'./chromedriver') #init browser
 browser.get("https://www.google.com/imghp?hl=en&search?hl=en&q=") 
 
 elem = browser.find_element_by_name("q") #init elem
-elem.send_keys("아이즈원 장원영") #keywords that you wanna use to search
+elem.send_keys("나인뮤지스 경리") #keywords that you wanna use to search
 time.sleep(3)
 elem.submit() #elem.submit()
 
 # for-loop 
-for i in range(1 ,6):
+for i in range(1 ,2):
     # find body tag and execute send_keys(Keys.END) for i < 10 so 9 times
     # Keys.END is when the END key is executed to be cliecked
     browser.find_element_by_xpath("//body").send_keys(Keys.END)  #smb == when clicking show more result button
@@ -58,7 +58,7 @@ def fetch_detail_url():
         # @param path; gives download path
         # @param a; gives auto-incrementing numeric file name
         # finally, set .jpg extension to each of the img downloaded.
-        urllib.request.urlretrieve(p, r"./img/장원영"+ str(a) + ".jpg" )
+        urllib.request.urlretrieve(p, r"./img/고양이/경리/경리"+ str(a) + ".jpg" )
         a+=1 #a = a + 1; increment nums
 
 #by calling the method fetch_detail_url(), the method fetch_list_url() is executed first in it.
