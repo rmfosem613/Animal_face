@@ -64,8 +64,6 @@
     </section>
 
     <div>Teachable Machine Image Model</div>
-    <button type="button" onclick="init()">Start</button>
-    <button type="button" onclick="predict()">예측</button>
     <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -86,13 +84,15 @@
         </div>
         <div class="file-upload-content">
             <img class="file-upload-image" id="face-image" src="#" alt="your image" />
+            <p class="result-message"></p>
+            <div id="label-container"></div>
             <div class="image-title-wrap">
                 <button type="button" onclick="removeUpload()" class="remove-image">Remove <span
                         class="image-title">Uploaded Image</span></button>
             </div>
         </div>
     </div>
-    <div id="label-container"></div>
+
     <div id="disqus_thread"></div>
     <script>
 
@@ -188,6 +188,31 @@
             // predict can take in an image, video or canvas html element
             var image = document.getElementById("face-image");
             const prediction = await model.predict(image);
+            prediction.sort((a,b) => parseFloat(b.probability) - parseFloat(a.probability));
+            console.log(prediction[0].className);
+            var resultMessage;
+            switch (prediction[0].className) {
+                case "강아지":
+                    resultMessage = "강아지상"
+                    break;
+
+                case "고양이":
+                    resultMessage = "고양이상"
+                    break;
+
+                case "토끼":
+                    resultMessage = "토끼상"
+                    break;
+
+                case "공룡":
+                    resultMessage = "공룡상"
+                    break;
+                
+                default:
+                    resultMessage = "알수없음"
+                    break;
+            }
+            $('.result-message').html(resultMessage);
             for (let i = 0; i < maxPredictions; i++) {
                 const classPrediction =
                     prediction[i].className + ": " + prediction[i].probability.toFixed(2);
